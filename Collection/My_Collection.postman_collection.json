@@ -1,0 +1,517 @@
+{
+  "info": {
+    "_postman_id": "1eadfa72-aed1-48aa-b132-e15f28f537b8",
+    "name": "My_Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54381001",
+    "_collection_link": "https://go.postman.co/collection/54381001-1eadfa72-aed1-48aa-b132-e15f28f537b8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Post data Driven_csv",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "var requestBody = pm.request.body.raw; \r",
+              "requestBody = JSON.parse(requestBody)\r",
+              "console.log(requestBody);\r",
+              "var req_name=requestBody.name;\r",
+              "var req_job = requestBody.job;\r",
+              "var expected_Date = new Date().toISOString();\r",
+              "expected_Date = expected_Date.substring(0, 11);\r",
+              "console.log(expected_Date);\r",
+              "\r",
+              "var responseBody = pm.response.json();\r",
+              "var res_name = responseBody.name;\r",
+              "var res_job = responseBody.job;\r",
+              "var res_id = responseBody.id;\r",
+              "var res_createdAt = responseBody.createdAt;\r",
+              "var res_meta_powered_by = responseBody._meta.powered_by;\r",
+              "var res_cta_label = responseBody._meta.cta.label;\r",
+              "\r",
+              "pm.test(\"Response body parameter : Name\", function () {\r",
+              "    pm.expect(res_name).to.eql(req_name);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Job\", function () {\r",
+              "    pm.expect(res_job).to.eql(req_job);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Id\", function () {\r",
+              "    pm.expect(res_id).length.greaterThan(0);\r",
+              "    pm.expect(parseInt(res_id)).to.not.null;\r",
+              "    pm.expect(parseInt(res_id)).to.greaterThan(0);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"{{name}}\",\"job\":\"{{job}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Post_En}}",
+          "host": [
+            "{{Post_En}}"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "post AI",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{Post_En}}",
+          "host": [
+            "{{Post_En}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "put AI",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{Put_En}}",
+          "host": [
+            "{{Put_En}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get AI",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const EXPECTED_STATUS_CODE = 200;",
+              "const MAX_RESPONSE_TIME = 2000;",
+              "const EXPECTED_PAGE = 1;",
+              "const EXPECTED_PER_PAGE = 6;",
+              "const EXPECTED_TOTAL = 12;",
+              "const EXPECTED_TOTAL_PAGES = 2;",
+              "const EXPECTED_DATA_LENGTH = 6;",
+              "const EXPECTED_SUPPORT_URL = 'https://benhowdle.im/first-cto-playbook?utm_source=reqres&utm_medium=json&utm_campaign=referral';",
+              "const EXPECTED_SUPPORT_TEXT = 'Become a better CTO. A playbook of painful stories and practical advice from a two-time startup CTO.';",
+              "",
+              "const EXPECTED_DATA = [",
+              "    {",
+              "        id: 1,",
+              "        name: 'cerulean',",
+              "        year: 2000,",
+              "        color: '#98B2D1',",
+              "        pantone_value: '15-4020'",
+              "    },",
+              "    {",
+              "        id: 2,",
+              "        name: 'fuchsia rose',",
+              "        year: 2001,",
+              "        color: '#C74375',",
+              "        pantone_value: '17-2031'",
+              "    },",
+              "    {",
+              "        id: 3,",
+              "        name: 'true red',",
+              "        year: 2002,",
+              "        color: '#BF1932',",
+              "        pantone_value: '19-1664'",
+              "    },",
+              "    {",
+              "        id: 4,",
+              "        name: 'aqua sky',",
+              "        year: 2003,",
+              "        color: '#7BC4C4',",
+              "        pantone_value: '14-4811'",
+              "    },",
+              "    {",
+              "        id: 5,",
+              "        name: 'tigerlily',",
+              "        year: 2004,",
+              "        color: '#E2583E',",
+              "        pantone_value: '17-1456'",
+              "    },",
+              "    {",
+              "        id: 6,",
+              "        name: 'blue turquoise',",
+              "        year: 2005,",
+              "        color: '#53B0AE',",
+              "        pantone_value: '15-5217'",
+              "    }",
+              "];",
+              "",
+              "function validateStatusCode() {",
+              "    pm.test('Status code is 200', function () {",
+              "        pm.response.to.have.status(EXPECTED_STATUS_CODE);",
+              "    });",
+              "}",
+              "",
+              "function validateResponseTime() {",
+              "    pm.test('Response time is within acceptable limit', function () {",
+              "        pm.expect(pm.response.responseTime).to.be.below(MAX_RESPONSE_TIME);",
+              "    });",
+              "}",
+              "",
+              "function validateResponseBodyStructure(responseJson) {",
+              "    pm.test('Response body has the expected structure', function () {",
+              "        pm.expect(responseJson).to.be.an('object');",
+              "        pm.expect(responseJson).to.have.property('page');",
+              "        pm.expect(responseJson).to.have.property('per_page');",
+              "        pm.expect(responseJson).to.have.property('total');",
+              "        pm.expect(responseJson).to.have.property('total_pages');",
+              "        pm.expect(responseJson).to.have.property('data');",
+              "        pm.expect(responseJson).to.have.property('support');",
+              "",
+              "        pm.expect(responseJson.data).to.be.an('array');",
+              "        pm.expect(responseJson.support).to.be.an('object');",
+              "    });",
+              "}",
+              "",
+              "function validateResponseBodyParameters(responseJson) {",
+              "    pm.test('Response body top-level parameters match expected values', function () {",
+              "        pm.expect(responseJson.page).to.eql(EXPECTED_PAGE);",
+              "        pm.expect(responseJson.per_page).to.eql(EXPECTED_PER_PAGE);",
+              "        pm.expect(responseJson.total).to.eql(EXPECTED_TOTAL);",
+              "        pm.expect(responseJson.total_pages).to.eql(EXPECTED_TOTAL_PAGES);",
+              "        pm.expect(responseJson.data.length).to.eql(EXPECTED_DATA_LENGTH);",
+              "        pm.expect(responseJson.support.url).to.eql(EXPECTED_SUPPORT_URL);",
+              "        pm.expect(responseJson.support.text).to.eql(EXPECTED_SUPPORT_TEXT);",
+              "    });",
+              "}",
+              "",
+              "function validateDataArrayParameters(responseJson) {",
+              "    pm.test('Response body data array parameters match expected values by index', function () {",
+              "        for (let index = 0; index < EXPECTED_DATA.length; index++) {",
+              "            pm.expect(responseJson.data[index].id).to.eql(EXPECTED_DATA[index].id);",
+              "            pm.expect(responseJson.data[index].name).to.eql(EXPECTED_DATA[index].name);",
+              "            pm.expect(responseJson.data[index].year).to.eql(EXPECTED_DATA[index].year);",
+              "            pm.expect(responseJson.data[index].color).to.eql(EXPECTED_DATA[index].color);",
+              "            pm.expect(responseJson.data[index].pantone_value).to.eql(EXPECTED_DATA[index].pantone_value);",
+              "        }",
+              "    });",
+              "}",
+              "",
+              "const responseJson = pm.response.json();",
+              "",
+              "validateStatusCode();",
+              "validateResponseTime();",
+              "validateResponseBodyStructure(responseJson);",
+              "validateResponseBodyParameters(responseJson);",
+              "validateDataArrayParameters(responseJson);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{Get_En}}",
+          "host": [
+            "{{Get_En}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post data Driven_json",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "var requestBody = pm.request.body.raw; \r",
+              "requestBody = JSON.parse(requestBody)\r",
+              "console.log(requestBody);\r",
+              "var req_name=requestBody.name;\r",
+              "var req_job = requestBody.job;\r",
+              "var expected_Date = new Date().toISOString();\r",
+              "expected_Date = expected_Date.substring(0, 11);\r",
+              "console.log(expected_Date);\r",
+              "\r",
+              "var responseBody = pm.response.json();\r",
+              "var res_name = responseBody.name;\r",
+              "var res_job = responseBody.job;\r",
+              "var res_id = responseBody.id;\r",
+              "var res_createdAt = responseBody.createdAt;\r",
+              "var res_meta_powered_by = responseBody._meta.powered_by;\r",
+              "var res_cta_label = responseBody._meta.cta.label;\r",
+              "\r",
+              "pm.test(\"Response body parameter : Name\", function () {\r",
+              "    pm.expect(res_name).to.eql(req_name);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Job\", function () {\r",
+              "    pm.expect(res_job).to.eql(req_job);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Id\", function () {\r",
+              "    pm.expect(res_id).length.greaterThan(0);\r",
+              "    pm.expect(parseInt(res_id)).to.not.null;\r",
+              "    pm.expect(parseInt(res_id)).to.greaterThan(0);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"{{name}}\",\"job\":\"{{job}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Post_En}}",
+          "host": [
+            "{{Post_En}}"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "Post DynamicDD_randomVariables",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "var requestBody = pm.request.body.raw; \r",
+              "requestBody = JSON.parse(requestBody)\r",
+              "console.log(requestBody);\r",
+              "var req_name=requestBody.name;\r",
+              "var req_job = requestBody.job;\r",
+              "var expected_Date = new Date().toISOString();\r",
+              "expected_Date = expected_Date.substring(0, 11);\r",
+              "console.log(expected_Date);\r",
+              "\r",
+              "var responseBody = pm.response.json();\r",
+              "var res_name = responseBody.name;\r",
+              "var res_job = responseBody.job;\r",
+              "var res_id = responseBody.id;\r",
+              "var res_createdAt = responseBody.createdAt;\r",
+              "var res_meta_powered_by = responseBody._meta.powered_by;\r",
+              "var res_cta_label = responseBody._meta.cta.label;\r",
+              "\r",
+              "pm.test(\"Response body parameter : Name\", function () {\r",
+              "    pm.expect(res_name).to.eql(req_name);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Job\", function () {\r",
+              "    pm.expect(res_job).to.eql(req_job);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Id\", function () {\r",
+              "    pm.expect(res_id).length.greaterThan(0);\r",
+              "    pm.expect(parseInt(res_id)).to.not.null;\r",
+              "    pm.expect(parseInt(res_id)).to.greaterThan(0);\r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              "pm.test(\"Response body parameter : Expected Date\", function () {\r",
+              "    pm.expect(res_createdAt.substring(0, 11)).to.eql(expected_Date);  \r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "var random_name = pm.variables.replaceIn('{{$randomFullName}}');\r",
+              "pm.collectionVariables.set(\"cll_req_name\",random_name);\r",
+              "\r",
+              "var random_job = pm.variables.replaceIn('{{$randomJobType}}');\r",
+              "pm.collectionVariables.set(\"cll_req_job\",random_job);\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "reqres_2fd3dde8996c4ddf99507b3dbe3fcaa0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"{{cll_req_name}}\",\"job\":\"{{cll_req_job}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Post_En}}",
+          "host": [
+            "{{Post_En}}"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "name",
+      "value": ""
+    },
+    {
+      "key": "job",
+      "value": ""
+    },
+    {
+      "key": "cll_req_name",
+      "value": ""
+    },
+    {
+      "key": "cll_req_job",
+      "value": ""
+    }
+  ]
+}
